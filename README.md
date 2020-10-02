@@ -1,2 +1,2 @@
-# SPM-Project
-Group 3
+# IceArt Recognition App
+
