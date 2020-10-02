@@ -1,0 +1,10 @@
+name: Linting
+on: [pull_request, push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: lint
+        run: ./gradlew lint
