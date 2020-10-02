@@ -6,5 +6,9 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - name: lint
+      - name: Android Lint
         run: ./gradlew lint
+      - name: KtLint
+        run: ./gradlew ktlintCheck
+      - name: KtLint formatter
+        run: ./gradlew ktlintFormat
