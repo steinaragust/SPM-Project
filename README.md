@@ -1,2 +1,3 @@
 # IceArt Recognition App
+SPM
 
