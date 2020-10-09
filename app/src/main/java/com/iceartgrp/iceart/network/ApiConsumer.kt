@@ -8,7 +8,7 @@ import com.github.kittinunf.result.Result
 import com.iceartgrp.iceart.models.Painting
 import com.iceartgrp.iceart.models.paintingFromJson
 
-class ApiConsumer() {
+class ApiConsumer {
     companion object {
         var host = "http://10.0.2.2:5000"
     }
