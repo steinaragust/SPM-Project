@@ -11,9 +11,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         mainbtn.setOnClickListener {
-            ApiConsumer(getString(R.string.iceart_api_host)).getPaintingById(
+            ApiConsumer().getPaintingById(
                 0,
                 onSuccess = { _, _, painting ->
                     maintxt.text = painting.title

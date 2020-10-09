@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">iceart</string>
-    <string name="iceart_api_host">http://10.0.2.2:5000</string>
     <string name="click_me">Click Me</string>
 </resources>
