@@ -9,6 +9,6 @@ data class Painting(
     @SerializedName("title") val title: String
 )
 
-fun paintingFromJson(json: String) : Painting {
+fun paintingFromJson(json: String): Painting {
     return Gson().fromJson(json, Painting::class.java) ?: throw IllegalArgumentException()
 }

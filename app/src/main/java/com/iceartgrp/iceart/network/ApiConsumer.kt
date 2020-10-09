@@ -8,8 +8,7 @@ import com.github.kittinunf.result.Result
 import com.iceartgrp.iceart.models.Painting
 import com.iceartgrp.iceart.models.paintingFromJson
 
-
-class ApiConsumer (private val host: String) {
+class ApiConsumer(private val host: String) {
     fun getPaintingById(
         id: Int,
         onSuccess: (Request, Response, Painting) -> Unit,

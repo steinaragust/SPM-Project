@@ -15,10 +15,10 @@ class MainActivity : AppCompatActivity() {
         mainbtn.setOnClickListener {
             ApiConsumer(getString(R.string.iceart_api_host)).getPaintingById(
                 0,
-                onSuccess = {_, _, painting ->
+                onSuccess = { _, _, painting ->
                     maintxt.text = painting.title
                 },
-                onFailure = {_, _, ex ->
+                onFailure = { _, _, ex ->
                     Log.e("Request Failure", ex.toString())
                     val errorMsg = "Error"
                     maintxt.text = errorMsg
