@@ -11,16 +11,9 @@ charset = utf-8
 [*.{json,yml,yaml,html,css}]
 indent_size = 2
 
-[**.min.js]
-indent_style = ignore
-insert_final_newline = ignore
-
 [*.{md,rst}]
 trim_trailing_whitespace = false
 insert_final_newline = false
 
 [*.{bat,ps1}]
-indent_style = tab
-
-[Makefile]
 indent_style = tab
