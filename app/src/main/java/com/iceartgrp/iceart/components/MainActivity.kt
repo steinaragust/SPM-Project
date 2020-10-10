@@ -14,12 +14,12 @@ class MainActivity : AppCompatActivity() {
         mainbtn.setOnClickListener {
             ApiConsumer().getPaintingById(
                 0,
-                onSuccess = { _, _, painting ->
+                onSuccess = { painting ->
                     maintxt.text = painting.title
                 },
-                onFailure = { _, _, ex ->
-                    Log.e("Request Failure", ex.toString())
-                    val errorMsg = "Error"
+                onFailure = { statusCode ->
+                    Log.e("Request Failure", statusCode.toString())
+                    val errorMsg = "Error: $statusCode"
                     maintxt.text = errorMsg
                 }
             )
