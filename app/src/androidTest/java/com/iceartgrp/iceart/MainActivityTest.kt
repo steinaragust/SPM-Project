@@ -23,7 +23,7 @@ class MainActivityTest {
         ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun useAppContext() {
+    fun testMainActivityBtnClick() {
         // Arrange
         val json = "{\"_id\": 5,\"info\": \"i\", \"title\": \"XXX\"}"
         val mockServer = MockWebServer()
