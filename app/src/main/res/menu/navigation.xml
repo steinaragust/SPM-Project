@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_camera"
+        android:icon="@drawable/ic_camera_enhance_24px"
+        android:title="Camera"/>
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_24px"
+        android:title="Search"/>
+    <item
+        android:id="@+id/navigation_discover"
+        android:icon="@drawable/ic_map_24px"
+        android:title="Discover"/>
+    <item
+        android:id="@+id/navigation_liked"
+        android:icon="@drawable/ic_thumb_up_alt_24px"
+        android:title="Liked"/>
+</menu>
