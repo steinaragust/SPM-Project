@@ -18,9 +18,6 @@ import com.iceartgrp.iceart.network.ApiConsumer
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var cameraFragment : CameraFragment
-
-
     private val mOnNavigationSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         item -> when(item.itemId) {
             R.id.navigation_camera -> {
@@ -35,9 +32,9 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_discover -> {
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.fragments.size == 0) {
-                    fragmentManager.beginTransaction().add(R.id.fragment_container, DiscoverFragment.newInstance("yo", "asd"), "discoverModule").commit()
+                    fragmentManager.beginTransaction().add(R.id.fragment_container, DiscoverFragment.newInstance(), "discoverModule").commit()
                 } else {
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, DiscoverFragment.newInstance("yo", "asd"), "discoverModule").commit()
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, DiscoverFragment.newInstance(), "discoverModule").commit()
                 }
                   true
             }
@@ -66,11 +63,11 @@ class MainActivity : AppCompatActivity() {
 //            )
 //        }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        Toast.makeText(this, "Camera success!", Toast.LENGTH_SHORT).show()
-    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        Toast.makeText(this, "Camera success!", Toast.LENGTH_SHORT).show()
+//    }
 
     /**
      * Check if you have Camera Permission

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".components.CameraFragment">
-    <FrameLayout
-        android:id="@+id/content"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
     <Button
         android:layout_gravity="bottom|center"
         android:id="@+id/btn_take_photo"
