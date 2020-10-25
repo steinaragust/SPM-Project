@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.ImageProxy
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.github.florent37.camerafragment.CameraFragment
@@ -17,7 +18,12 @@ import com.iceartgrp.iceart.R
 import com.iceartgrp.iceart.network.ApiConsumer
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity() : AppCompatActivity()  {
+    companion object {
+        var recentImage: ImageProxy? = null
+    }
+
+
     private val mOnNavigationSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         item -> when(item.itemId) {
             R.id.navigation_camera -> {
@@ -47,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationSelectedListener)
+        navigationView.selectedItemId = R.id.navigation_camera
         hasPermissionAndOpenCamera()
         // navigationView.setSelectedItemId(R.id.navigation_camera)
 //        mainbtn.setOnClickListener {

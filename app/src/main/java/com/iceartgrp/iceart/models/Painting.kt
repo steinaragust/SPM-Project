@@ -6,7 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class Painting(
     @SerializedName("_id") val id: Int,
     @SerializedName("info") val info: String,
-    @SerializedName("title") val title: String
+    @SerializedName("title") val title: String,
+    @SerializedName("image") val image: String
 )
 
 fun paintingFromJson(json: String): Painting {

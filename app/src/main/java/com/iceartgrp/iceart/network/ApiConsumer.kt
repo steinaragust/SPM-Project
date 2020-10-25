@@ -7,7 +7,7 @@ import com.iceartgrp.iceart.models.paintingFromJson
 
 class ApiConsumer {
     companion object {
-        var host = "http://10.0.2.2:5000"
+        var host = "http://192.168.3.6:5000"
     }
 
     fun getPaintingById(

@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.util.Base64
 import androidx.camera.core.ImageProxy
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 
@@ -25,6 +26,12 @@ class ImageUtils {
                 .compress(Bitmap.CompressFormat.JPEG, QUALITY, outputStream)
             return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
                 .replace("\n", "")
+        }
+
+        fun imageFrom64Encoding(image: String): Bitmap {
+            val decoded = Base64.decode(image, Base64.DEFAULT)
+            val decodedImage = BitmapFactory.decodeByteArray(decoded, 0, decoded.size)
+            return decodedImage
         }
     }
 }

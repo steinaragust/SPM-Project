@@ -1,23 +1,21 @@
 package com.iceartgrp.iceart.components
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
+import android.media.MediaActionSound
 import android.os.Bundle
-import android.os.Environment
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.iceartgrp.iceart.R
+import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage
 import kotlinx.android.synthetic.main.fragment_camera.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import com.iceartgrp.iceart.utils.ImageUtils
+
 
 /**
  * A simple [Fragment] subclass.
@@ -38,8 +36,8 @@ class CameraFragment : Fragment() {
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         cameraExecutor.shutdown()
     }
 
@@ -87,7 +85,7 @@ class CameraFragment : Fragment() {
                     cameraProvider.unbindAll()
                     cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
                 } catch (exc: Exception) {
-                    // TODO: Error handle, close appÐ
+                    // TODO: Error handle, close app
                 }
             },
             ContextCompat.getMainExecutor(requireContext())
@@ -96,16 +94,16 @@ class CameraFragment : Fragment() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-
+        val sound = MediaActionSound()
+        sound.play(MediaActionSound.SHUTTER_CLICK);
         imageCapture.takePicture(
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
-                    // get bitmap from image
-                    val img = ImageUtils.imageTo64Encoding(image)
-                    var fragmentManager = fragmentManager;
+                    recentImage = image
+                    var fragmentManager = fragmentManager
                     if (fragmentManager != null) {
-                        fragmentManager.beginTransaction().replace(R.id.fragment_container, PhotoInfoFragment.newInstance(img), "Nothing")
+                        fragmentManager.beginTransaction().replace(R.id.fragment_container, PhotoInfoFragment.newInstance(""), "Nothing")
                             .commit()
                     }
                 }
@@ -117,9 +115,4 @@ class CameraFragment : Fragment() {
             }
         )
     }
-
-//    private fun takeNewPhoto() {
-//        var path = Environment.getDownloadCacheDirectory().toString()
-//        cameraFragment.takePhotoOrCaptureVideo(callBackListener, path, "photo_test10")
-//    }
 }

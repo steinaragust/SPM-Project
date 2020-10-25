@@ -1,20 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".components.PhotoInfoFragment">
+    tools:context=".components.PhotoInfoFragment"
+    >
 
-    <TextView
-        android:id="@+id/test_textview"
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/painting_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello"
-        android:visibility="gone" />
+        android:background="@color/white"
+        app:flexDirection="column"
+        android:visibility="gone"
+        >
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            app:flexDirection="row"
+            app:justifyContent="space_between">
+
+            <ImageButton
+                android:id="@+id/go_back"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_keyboard_arrow_left_24px"
+                android:title="Go back" />
+
+            <TextView
+                android:id="@+id/painting_title"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=""
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/like_icon"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_thumb_up_alt_24px"
+                android:title="" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:justifyContent="center">
+
+            <ImageView
+                android:id="@+id/painting_image_view"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/border_background" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="Information"
+            android:textFontWeight="50"
+            android:textSize="24dp"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/border_background"
+            app:flexDirection="column"
+            app:justifyContent="space_between">
+
+            <TextView
+                android:textSize="16dp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Year: 2006"
+                />
+
+            <TextView
+                android:textSize="16dp"
+                android:padding="5dp"
+                android:id="@+id/painting_info_text"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+        </com.google.android.flexbox.FlexboxLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:flexDirection="row"
+            app:justifyContent="space_between"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:text="Artist information"
+                app:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:layout_width="10dp"
+                app:layout_flexGrow="1"
+                app:strokeWidth="2dp"
+                app:cornerRadius="8dp"
+                android:layout_height="match_parent" />
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+            <com.google.android.material.button.MaterialButton
+                android:text="See more work from artist"
+                app:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                app:layout_flexGrow="1"
+                android:layout_width="10dp"
+                app:strokeWidth="2dp"
+                app:cornerRadius="8dp"
+                android:layout_height="match_parent" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
     <ProgressBar
         android:id="@+id/loading_spinner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
 </FrameLayout>
