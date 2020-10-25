@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.core.*
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,7 +19,6 @@ import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage
 import kotlinx.android.synthetic.main.fragment_camera.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-
 
 /**
  * A simple [Fragment] subclass.
@@ -43,7 +46,8 @@ class CameraFragment : Fragment() {
 
     @SuppressLint("MissingPermission")
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -95,17 +99,14 @@ class CameraFragment : Fragment() {
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
         val sound = MediaActionSound()
-        sound.play(MediaActionSound.SHUTTER_CLICK);
+        sound.play(MediaActionSound.SHUTTER_CLICK)
         imageCapture.takePicture(
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     recentImage = image
-                    var fragmentManager = fragmentManager
-                    if (fragmentManager != null) {
-                        fragmentManager.beginTransaction().replace(R.id.fragment_container, PhotoInfoFragment.newInstance(""), "Nothing")
-                            .commit()
-                    }
+                    val fragmentManager = fragmentManager
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(""), "Nothing")?.commit()
                 }
 
                 override fun onError(exception: ImageCaptureException) {

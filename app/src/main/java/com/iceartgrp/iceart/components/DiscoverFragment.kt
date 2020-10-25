@@ -1,14 +1,13 @@
 package com.iceartgrp.iceart.components
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.GoogleMap
-import com.iceartgrp.iceart.R
-import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.iceartgrp.iceart.R
 import kotlinx.android.synthetic.main.fragment_discover.*
 
 /**
@@ -32,7 +31,8 @@ class DiscoverFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -55,6 +55,6 @@ class DiscoverFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        map?.let { googleMap = it}
+        map?.let { googleMap = it }
     }
 }

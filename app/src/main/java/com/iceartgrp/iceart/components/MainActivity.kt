@@ -1,31 +1,24 @@
 package com.iceartgrp.iceart.components
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageProxy
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.github.florent37.camerafragment.CameraFragment
-import com.github.florent37.camerafragment.PreviewActivity
-import com.github.florent37.camerafragment.listeners.CameraFragmentResultListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iceartgrp.iceart.R
-import com.iceartgrp.iceart.network.ApiConsumer
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity() : AppCompatActivity()  {
+class MainActivity() : AppCompatActivity() {
     companion object {
         var recentImage: ImageProxy? = null
     }
 
-
     private val mOnNavigationSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
-        item -> when(item.itemId) {
+        item ->
+        when (item.itemId) {
             R.id.navigation_camera -> {
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.fragments.size == 0) {
@@ -42,12 +35,11 @@ class MainActivity() : AppCompatActivity()  {
                 } else {
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, DiscoverFragment.newInstance(), "discoverModule").commit()
                 }
-                  true
+                true
             }
             else -> false
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +74,8 @@ class MainActivity() : AppCompatActivity()  {
      */
     private fun hasPermissionAndOpenCamera() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED
+        ) {
             requestPermission()
         }
     }

@@ -1,12 +1,14 @@
 package com.iceartgrp.iceart.components
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.flexbox.FlexboxLayout
@@ -39,11 +41,12 @@ class PhotoInfoFragment : Fragment() {
             encoded64Photo = it.getString(ARG_PHOTO_STRING)
         }
     }
-        //apiConsumer.uploadImage(img)
+    // apiConsumer.uploadImage(img)
     private lateinit var viewModel: PhotoInfoViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.photo_info_fragment, container, false)
@@ -53,12 +56,12 @@ class PhotoInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
         if (footer != null) {
-            footer.visibility = View.INVISIBLE;
+            footer.visibility = View.INVISIBLE
         }
         mainLayout = activity?.findViewById<FlexboxLayout>(R.id.painting_content)
         loader = activity?.findViewById<ProgressBar>(R.id.loading_spinner)
         activity?.findViewById<ImageButton>(R.id.go_back)?.setOnClickListener {
-            var fragmentManager = fragmentManager;
+            var fragmentManager = fragmentManager
             if (fragmentManager != null) {
                 fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, CameraFragment.newInstance(), "Nothing")
@@ -100,7 +103,7 @@ class PhotoInfoFragment : Fragment() {
         super.onStop()
         var footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
         if (footer != null) {
-            footer.visibility = View.VISIBLE;
+            footer.visibility = View.VISIBLE
         }
     }
 
@@ -109,5 +112,4 @@ class PhotoInfoFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PhotoInfoViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }
