@@ -5,20 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.GoogleMap
 import com.iceartgrp.iceart.R
+import com.google.android.gms.maps.MapFragment
+import com.google.android.gms.maps.OnMapReadyCallback
+import kotlinx.android.synthetic.main.fragment_discover.*
 
 /**
  * A simple [Fragment] subclass.
  * Use the [DiscoverFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DiscoverFragment : Fragment() {
+class DiscoverFragment : Fragment(), OnMapReadyCallback {
     // TODO: Rename and change types of parameters
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var googleMap: GoogleMap
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         arguments?.let {
         }
+        map_view.onCreate(savedInstanceState)
+        map_view.onResume()
+
+        map_view.getMapAsync(this)
     }
 
     override fun onCreateView(
@@ -42,5 +52,9 @@ class DiscoverFragment : Fragment() {
         @JvmStatic
         fun newInstance() =
             DiscoverFragment()
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+        map?.let { googleMap = it}
     }
 }
