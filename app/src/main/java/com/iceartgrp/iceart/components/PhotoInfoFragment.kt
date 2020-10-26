@@ -20,17 +20,14 @@ import com.iceartgrp.iceart.utils.ImageUtils
 import com.iceartgrp.iceart.utils.ImageUtils.Companion.imageFrom64Encoding
 import kotlinx.android.synthetic.main.photo_info_fragment.*
 
-private const val ARG_PHOTO_STRING = "photoString"
-
 class PhotoInfoFragment : Fragment() {
     private var encoded64Photo: String? = null
     private var mainLayout: FlexboxLayout? = null
     private var loader: ProgressBar? = null
 
     companion object {
-        fun newInstance(photoString: String) = PhotoInfoFragment().apply {
+        fun newInstance() = PhotoInfoFragment().apply {
             arguments = Bundle().apply {
-                putString(ARG_PHOTO_STRING, photoString)
             }
         }
     }
@@ -38,7 +35,6 @@ class PhotoInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            encoded64Photo = it.getString(ARG_PHOTO_STRING)
         }
     }
     // apiConsumer.uploadImage(img)
@@ -62,15 +58,12 @@ class PhotoInfoFragment : Fragment() {
         loader = activity?.findViewById<ProgressBar>(R.id.loading_spinner)
         activity?.findViewById<ImageButton>(R.id.go_back)?.setOnClickListener {
             var fragmentManager = fragmentManager
-            if (fragmentManager != null) {
-                fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, CameraFragment.newInstance(), "Nothing")
-                    .commit()
-            }
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, CameraFragment.newInstance(), "Nothing")?.commit()
         }
         // get bitmap from image
         if (recentImage != null) {
-            val img = ImageUtils.imageTo64Encoding(recentImage!!)
+            // TODO: send photo to api for recognition
+            encoded64Photo = ImageUtils.imageTo64Encoding(recentImage!!)
             ApiConsumer().getPaintingById(
                 0,
                 onSuccess = { painting ->

@@ -106,7 +106,7 @@ class CameraFragment : Fragment() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     recentImage = image
                     val fragmentManager = fragmentManager
-                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(""), "Nothing")?.commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(), "Nothing")?.commit()
                 }
 
                 override fun onError(exception: ImageCaptureException) {
