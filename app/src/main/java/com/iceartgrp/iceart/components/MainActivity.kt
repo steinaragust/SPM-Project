@@ -22,9 +22,9 @@ class MainActivity() : AppCompatActivity() {
             R.id.navigation_camera -> {
                 val fragmentManager = supportFragmentManager
                 if (fragmentManager.fragments.size == 0) {
-                    fragmentManager.beginTransaction().add(R.id.fragment_container, com.iceartgrp.iceart.components.CameraFragment.newInstance(), "cameraModule").commit()
+                    fragmentManager.beginTransaction().add(R.id.fragment_container, CameraFragment.newInstance(), "cameraModule").commit()
                 } else {
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, com.iceartgrp.iceart.components.CameraFragment.newInstance(), "cameraModule").commit()
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, CameraFragment.newInstance(), "cameraModule").commit()
                 }
                 true
             }
@@ -47,26 +47,7 @@ class MainActivity() : AppCompatActivity() {
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationSelectedListener)
         navigationView.selectedItemId = R.id.navigation_camera
         hasPermissionAndOpenCamera()
-        // navigationView.setSelectedItemId(R.id.navigation_camera)
-//        mainbtn.setOnClickListener {
-//            ApiConsumer().getPaintingById(
-//                0,
-//                onSuccess = { painting ->
-//                    maintxt.text = painting.title
-//                },
-//                onFailure = { statusCode ->
-//                    Log.e("Request Failure", statusCode.toString())
-//                    val errorMsg = "Error: $statusCode"
-//                    maintxt.text = errorMsg
-//                }
-//            )
-//        }
     }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        Toast.makeText(this, "Camera success!", Toast.LENGTH_SHORT).show()
-//    }
 
     /**
      * Check if you have Camera Permission
