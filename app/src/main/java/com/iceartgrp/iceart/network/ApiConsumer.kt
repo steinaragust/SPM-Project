@@ -10,7 +10,7 @@ import com.iceartgrp.iceart.models.paintingFromJson
 
 class ApiConsumer {
     companion object {
-        var host = "http://192.168.3.6:5000"
+        var host = "http://10.0.2.2:5000"
     }
 
     fun getPaintingById(
@@ -38,8 +38,8 @@ class ApiConsumer {
         onFailure: (Int) -> Unit
     ) {
         val url = "$host/exhibition"
-        val jsonBody = "{\"latitude\": $latitude, \"longitude\": $longitude}"
-        url.httpPost().body(jsonBody).responseString { _, response, result ->
+        val jsonBody = """{"latitude": $latitude, "longitude": $longitude}"""
+        url.httpPost().body(jsonBody).header("Content-Type" to "application/json").responseString { _, response, result ->
             when (result) {
                 is Result.Failure -> {
                     onFailure(response.statusCode)

@@ -18,6 +18,7 @@ import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage
 import com.iceartgrp.iceart.network.ApiConsumer
 import com.iceartgrp.iceart.utils.ImageUtils
 import com.iceartgrp.iceart.utils.ImageUtils.Companion.imageFrom64Encoding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.photo_info_fragment.*
 
 class PhotoInfoFragment : Fragment() {
@@ -50,14 +51,14 @@ class PhotoInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
+        val footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
         if (footer != null) {
             footer.visibility = View.INVISIBLE
         }
         mainLayout = activity?.findViewById<FlexboxLayout>(R.id.painting_content)
         loader = activity?.findViewById<ProgressBar>(R.id.loading_spinner)
         activity?.findViewById<ImageButton>(R.id.go_back)?.setOnClickListener {
-            var fragmentManager = fragmentManager
+            val fragmentManager = fragmentManager
             fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, CameraFragment.newInstance(), "Nothing")?.commit()
         }
         // get bitmap from image
@@ -68,16 +69,16 @@ class PhotoInfoFragment : Fragment() {
                 0,
                 onSuccess = { painting ->
                     println(painting)
-                    var title = activity?.findViewById<TextView>(R.id.painting_title)
+                    val title = activity?.findViewById<TextView>(R.id.painting_title)
                     if (title != null) {
                         title.text = painting.title
                     }
-                    var photo = activity?.findViewById<ImageView>(R.id.painting_image_view)
+                    val photo = activity?.findViewById<ImageView>(R.id.painting_image_view)
                     if (photo != null) {
                         val image = imageFrom64Encoding(painting.image)
                         photo.setImageBitmap(image)
                     }
-                    var info = activity?.findViewById<TextView>(R.id.painting_info_text)
+                    val info = activity?.findViewById<TextView>(R.id.painting_info_text)
                     if (info != null) {
                         info.text = painting.info
                     }
@@ -86,7 +87,6 @@ class PhotoInfoFragment : Fragment() {
                 },
                 onFailure = { statusCode ->
                     Log.e("Request Failure", statusCode.toString())
-                    val errorMsg = "Error: $statusCode"
                 }
             )
         }
@@ -94,7 +94,7 @@ class PhotoInfoFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        var footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
+        val footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
         if (footer != null) {
             footer.visibility = View.VISIBLE
         }

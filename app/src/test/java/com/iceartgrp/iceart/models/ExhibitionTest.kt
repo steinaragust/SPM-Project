@@ -20,7 +20,7 @@ class ExhibitionTest {
         // Act
         val exhibitions = exhibitionsFromJson(jsonStr)
 
-        // Assert 64.145404, -21.958999
+        // Assert
         assertEquals(3, exhibitions.exhibitions[0].id)
         assertEquals(4, exhibitions.exhibitions[1].id)
     }
