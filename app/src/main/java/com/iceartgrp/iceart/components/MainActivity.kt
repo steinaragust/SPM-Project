@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity() : AppCompatActivity() {
     companion object {
         var recentImage: ImageProxy? = null
+
+
     }
 
     private val mOnNavigationSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -68,7 +70,8 @@ class MainActivity() : AppCompatActivity() {
         val permissions = arrayOf(
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_FINE_LOCATION
         )
 
         ActivityCompat.requestPermissions(this, permissions, PackageManager.PERMISSION_GRANTED)

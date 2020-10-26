@@ -6,4 +6,6 @@
     <string name="camera_module">Camera module</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_info_title">Klambratún</string>
+    <string name="default_info_snippet">reykjavík</string>
 </resources>
