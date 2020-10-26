@@ -38,7 +38,8 @@ class ApiConsumer {
         onFailure: (Int) -> Unit
     ) {
         val url = "$host/exhibition"
-        val jsonBody = """{"latitude": $latitude, "longitude": $longitude}"""
+        val jsonBody =
+            """{"latitude": $latitude, "longitude": $longitude}"""
         url.httpPost().body(jsonBody).header("Content-Type" to "application/json").responseString { _, response, result ->
             when (result) {
                 is Result.Failure -> {
