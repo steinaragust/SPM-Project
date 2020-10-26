@@ -26,7 +26,6 @@ import java.util.concurrent.Executors
  * create an instance of this fragment.
  */
 class CameraFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private lateinit var cameraExecutor: ExecutorService
     private var imageCapture: ImageCapture? = null
 
@@ -84,10 +83,9 @@ class CameraFragment : Fragment() {
                     it.setSurfaceProvider(viewFinder.surfaceProvider)
                 }
                 imageCapture = ImageCapture.Builder().build()
-                val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
                 try {
                     cameraProvider.unbindAll()
-                    cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+                    cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageCapture)
                 } catch (exc: Exception) {
                     // TODO: Error handle, close app
                 }
@@ -98,8 +96,7 @@ class CameraFragment : Fragment() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-        val sound = MediaActionSound()
-        sound.play(MediaActionSound.SHUTTER_CLICK)
+        MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
         imageCapture.takePicture(
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageCapturedCallback() {
@@ -111,7 +108,6 @@ class CameraFragment : Fragment() {
 
                 override fun onError(exception: ImageCaptureException) {
                     // TODO: handle error
-                    print("error")
                 }
             }
         )
