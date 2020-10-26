@@ -18,7 +18,7 @@ class PaintingTest {
 
         // Act
         val painting = paintingFromJson(
-            "{\"_id\": $expectedId,\"info\": \"$expectedInfo\", \"title\": \"$expectedTitle\"}"
+            "{\"id\": $expectedId,\"info\": \"$expectedInfo\", \"title\": \"$expectedTitle\"}"
         )
 
         // Assert
