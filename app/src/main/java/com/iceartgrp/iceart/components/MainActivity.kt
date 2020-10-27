@@ -14,8 +14,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity() : AppCompatActivity() {
     companion object {
         var recentImage: ImageProxy? = null
-
-
     }
 
     private val mOnNavigationSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {

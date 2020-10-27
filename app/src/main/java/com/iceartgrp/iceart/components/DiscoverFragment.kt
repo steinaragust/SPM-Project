@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.iceartgrp.iceart.R
-import com.iceartgrp.iceart.network.ApiConsumer
 import kotlinx.android.synthetic.main.fragment_discover.*
 
 /**
@@ -30,7 +29,8 @@ import kotlinx.android.synthetic.main.fragment_discover.*
  * Use the [DiscoverFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DiscoverFragment : Fragment(),
+class DiscoverFragment :
+    Fragment(),
     OnMapReadyCallback {
     // TODO: Rename and change types of parameters
 
@@ -48,9 +48,6 @@ class DiscoverFragment : Fragment(),
     private var lastKnownLocation: Location? = null
 
     private lateinit var markerPerth: Marker
-
-
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -70,7 +67,6 @@ class DiscoverFragment : Fragment(),
         map_view.onResume()
 
         map_view.getMapAsync(this)
-
     }
 
     /**
@@ -89,8 +85,6 @@ class DiscoverFragment : Fragment(),
      * @param menu The options menu.
      * @return Boolean.
      */
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -112,12 +106,12 @@ class DiscoverFragment : Fragment(),
          * @return A new instance of fragment DiscoverFragment.
          */
         private val TAG = DiscoverFragment::class.java.simpleName
-        private  val DEFAULT_ZOOM = 15
-        private  val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+        private val DEFAULT_ZOOM = 15
+        private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
         // Keys for storing activity state.
-        private  val KEY_CAMERA_POSITION = "camera_position"
-        private  val KEY_LOCATION = "location"
+        private val KEY_CAMERA_POSITION = "camera_position"
+        private val KEY_LOCATION = "location"
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
@@ -127,8 +121,6 @@ class DiscoverFragment : Fragment(),
     @SuppressLint("MissingPermission")
     override fun onMapReady(map: GoogleMap) {
         this.map = map
-
-
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -144,30 +136,15 @@ class DiscoverFragment : Fragment(),
         addExhibitions()
     }
 
-
-    private fun addExhibitions(){
-
-        var closeExhibitions = ApiConsumer().getNearbyExhibitions(
-            64.145404,
-            -21.958999,
-            onSuccess = { exhibitions ->
-                for (ex in exhibitions) {
-                    val x = ex.id
-                    Log.d("API:", "$x")
-                }
-            },
-            onFailure = { statusCode ->
-                Log.e("Request Failure", statusCode.toString())
-            }
-        )
-
-
-        val sydney = LatLng(-33.852, 151.211)
-        this.map!!.addMarker(
-            MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney")
-        )
+    private fun addExhibitions() {
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1377352, -21.9156225)).title("Kjarvalsstadir"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1377466, -21.9221885)).title("Listasafn Einars Jónssonar"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1382757, -21.9312439)).title("Ásmundarsafn"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1399365, -21.934983)).title("Listasafn Ásgríms Jónssonar"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1285322, -21.9045882)).title("Listasafn Reykjavíkur"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1356286, -21.9172053)).title("Listasafn Íslands"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1418753, -21.9095743)).title("Gallerí Fold"))
+        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1418753, -21.9095743)).title("Gallerí List"))
     }
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -185,15 +162,23 @@ class DiscoverFragment : Fragment(),
                         // Set the map's camera position to the current location of the device.
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                LatLng(lastKnownLocation!!.latitude,
-                                    lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+                            map?.moveCamera(
+                                CameraUpdateFactory.newLatLngZoom(
+                                    LatLng(
+                                        lastKnownLocation!!.latitude,
+                                        lastKnownLocation!!.longitude
+                                    ),
+                                    DEFAULT_ZOOM.toFloat()
+                                )
+                            )
                         }
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
-                        map?.moveCamera(CameraUpdateFactory
-                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
+                        map?.moveCamera(
+                            CameraUpdateFactory
+                                .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat())
+                        )
                         map?.uiSettings?.isMyLocationButtonEnabled = false
                     }
                 }
@@ -212,29 +197,37 @@ class DiscoverFragment : Fragment(),
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (ContextCompat.checkSelfPermission(this.context!!,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this.context!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
             locationPermissionGranted = true
         } else {
-            ActivityCompat.requestPermissions(this.activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            ActivityCompat.requestPermissions(
+                this.activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
+            )
         }
     }
 
     /**
      * Handles the result of the request for location permissions.
      */
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>,
-                                            grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         locationPermissionGranted = false
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> {
 
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
                     locationPermissionGranted = true
                 }
             }
@@ -261,24 +254,21 @@ class DiscoverFragment : Fragment(),
         }
     }
 
-
     private fun showCurrentPlace() {
         if (map == null) {
             return
         }
         if (locationPermissionGranted) {
             // Add a default marker
-            map?.addMarker(MarkerOptions()
-                .title(getString(R.string.default_info_title))
-                .position(defaultLocation)
-                .snippet(getString(R.string.default_info_snippet)))
-
-
-        }
-        else{
+            map?.addMarker(
+                MarkerOptions()
+                    .title(getString(R.string.default_info_title))
+                    .position(defaultLocation)
+                    .snippet(getString(R.string.default_info_snippet))
+            )
+        } else {
             // Prompt the user for permission.
             getLocationPermission()
         }
     }
-
 }
