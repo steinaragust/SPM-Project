@@ -13,17 +13,19 @@ class PaintingTest {
     fun testPaintingFromJsonSuccess() {
         // Arrange
         val expectedTitle = "title0"
-        val expectedInfo = "info0"
+        val expectedTechnique = "technique0"
         val expectedId = 0
+        val expectedYear = 1992
 
         // Act
         val painting = paintingFromJson(
-            "{\"id\": $expectedId,\"info\": \"$expectedInfo\", \"title\": \"$expectedTitle\"}"
+            "{\"id\": $expectedId,\"technique\": \"$expectedTechnique\", \"title\": \"$expectedTitle\", \"year\": \"$expectedYear\"}"
         )
 
         // Assert
         assertEquals(expectedTitle, painting.title)
-        assertEquals(expectedInfo, painting.info)
+        assertEquals(expectedTechnique, painting.technique)
         assertEquals(expectedId, painting.id)
+        assertEquals(expectedYear, painting.year)
     }
 }
