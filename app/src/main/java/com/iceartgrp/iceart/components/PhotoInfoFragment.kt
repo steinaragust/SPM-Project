@@ -59,7 +59,7 @@ class PhotoInfoFragment : Fragment() {
                 onSuccess = { painting ->
                     painting_title.text = painting.title
                     painting_image_view.setImageBitmap(imageFrom64Encoding(painting.image))
-                    painting_info_text.text = painting.info
+                    painting_info_text.text = painting.technique
                     painting_content.visibility = View.VISIBLE
                     loading_spinner?.visibility = View.GONE
                 },
