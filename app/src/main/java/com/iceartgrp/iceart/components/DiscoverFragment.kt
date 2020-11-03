@@ -140,7 +140,8 @@ class DiscoverFragment :
 
     private fun addExhibitions() {
         ApiConsumer().getNearbyExhibitions(
-            lastKnownLocation?.latitude!!, lastKnownLocation?.longitude!!,
+            lastKnownLocation?.latitude!!,
+            lastKnownLocation?.longitude!!,
             onSuccess = { exhibitions ->
                 for (ex in exhibitions) {
                     this.map!!.addMarker(MarkerOptions().position(LatLng(ex.latitude.toDouble(), ex.longitude.toDouble())).title(ex.title).snippet(ex.info))
