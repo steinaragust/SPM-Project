@@ -5,9 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Painting(
     @SerializedName("id") val id: Int,
-    @SerializedName("info") val info: String,
+    @SerializedName("technique") val technique: String,
     @SerializedName("title") val title: String,
-    @SerializedName("image") val image: String
+    @SerializedName("image") val image: String,
+    @SerializedName("year") val year: Int
+
 )
 
 fun paintingFromJson(json: String): Painting {
