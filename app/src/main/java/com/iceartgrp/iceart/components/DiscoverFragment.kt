@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,7 +23,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.iceartgrp.iceart.R
+import com.iceartgrp.iceart.network.ApiConsumer
 import kotlinx.android.synthetic.main.fragment_discover.*
+import kotlinx.android.synthetic.main.fragment_discover.loading_spinner
+import kotlinx.android.synthetic.main.photo_info_fragment.*
 
 /**
  * A simple [Fragment] subclass.
@@ -132,19 +136,28 @@ class DiscoverFragment :
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
-
-        addExhibitions()
     }
 
     private fun addExhibitions() {
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1377352, -21.9156225)).title("Kjarvalsstadir"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1377466, -21.9221885)).title("Listasafn Einars Jónssonar"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1382757, -21.9312439)).title("Ásmundarsafn"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1399365, -21.934983)).title("Listasafn Ásgríms Jónssonar"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1285322, -21.9045882)).title("Listasafn Reykjavíkur"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1356286, -21.9172053)).title("Listasafn Íslands"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1418753, -21.9095743)).title("Gallerí Fold"))
-        this.map!!.addMarker(MarkerOptions().position(LatLng(64.1418753, -21.9095743)).title("Gallerí List"))
+        ApiConsumer().getNearbyExhibitions(
+            lastKnownLocation?.latitude!!,
+            lastKnownLocation?.longitude!!,
+            onSuccess = { exhibitions ->
+                for (ex in exhibitions) {
+                    this.map!!.addMarker(MarkerOptions().position(LatLng(ex.latitude.toDouble(), ex.longitude.toDouble())).title(ex.title).snippet(ex.info))
+                }
+                map_view?.visibility = View.VISIBLE
+                loading_spinner?.visibility = View.GONE
+            },
+            onFailure = { statusCode ->
+                var errorMessage = "Something went wrong, please try again later"
+                if (statusCode == -1) {
+                    errorMessage = "Connection failed, please check your internet connection"
+                }
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                Log.e("Request Failure", statusCode.toString())
+            }
+        )
     }
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -172,6 +185,7 @@ class DiscoverFragment :
                                 )
                             )
                         }
+                        addExhibitions()
                     } else {
                         Log.d(TAG, "Current location is null. Using defaults.")
                         Log.e(TAG, "Exception: %s", task.exception)
@@ -203,6 +217,7 @@ class DiscoverFragment :
             locationPermissionGranted = true
         } else {
             ActivityCompat.requestPermissions(this.activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
         }
     }
 
