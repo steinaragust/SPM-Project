@@ -58,10 +58,14 @@ class PhotoInfoFragment : Fragment() {
                 0,
                 onSuccess = { painting ->
                     painting_title.text = painting.title
+                    painting_year.text = painting.year.toString()
                     painting_image_view.setImageBitmap(imageFrom64Encoding(painting.image))
                     painting_info_text.text = painting.technique
                     painting_content.visibility = View.VISIBLE
                     loading_spinner?.visibility = View.GONE
+                    artist_info_button.setOnClickListener {
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, ArtistFragment.newInstance(painting.artistId), "artistView")?.commit()
+                    }
                 },
                 onFailure = { statusCode ->
                     var errorMessage = "Something went wrong, please try again later"

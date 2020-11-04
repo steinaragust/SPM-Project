@@ -8,8 +8,8 @@ data class Painting(
     @SerializedName("technique") val technique: String,
     @SerializedName("title") val title: String,
     @SerializedName("image") val image: String,
-    @SerializedName("year") val year: Int
-
+    @SerializedName("year") val year: Int,
+    @SerializedName("artist") val artistId: Int
 )
 
 fun paintingFromJson(json: String): Painting {
