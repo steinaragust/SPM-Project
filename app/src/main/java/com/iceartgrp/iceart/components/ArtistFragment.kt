@@ -12,7 +12,8 @@ import com.iceartgrp.iceart.R
 import com.iceartgrp.iceart.network.ApiConsumer
 import com.iceartgrp.iceart.utils.ImageUtils
 import kotlinx.android.synthetic.main.fragment_artist.*
-import kotlin.math.absoluteValue
+import kotlinx.android.synthetic.main.fragment_artist.go_back
+import kotlinx.android.synthetic.main.fragment_artist.loading_spinner
 
 private const val ARG_ARTIST_ID = "artist_id_arg"
 
@@ -47,41 +48,41 @@ class ArtistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        go_back.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(), "photoInfoFragment")?.commit()
+        }
         val footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
         if (footer != null) {
             footer.visibility = View.INVISIBLE
         }
+        ApiConsumer().getArtistById(
+            0,
+            onSuccess = { artist ->
+                artist_title.text = artist.title
+                val image = ImageUtils.imageFrom64Encoding(artist.image)
+                val maxWH = dpToPx(200)
 
-        if (MainActivity.recentImage != null) {
-            ApiConsumer().getArtistById(
-                0,
-                onSuccess = { artist ->
-                    artist_title.text = artist.title
-                    val image = ImageUtils.imageFrom64Encoding(artist.image)
-                    val maxWH = dpToPx(200)
-
-                    if (image.height - image.width > 0) {
-                        val ratio = ((image.height - image.width).toFloat() / image.height.toFloat())
-                        artist_image_view.layoutParams.width = (maxWH - (maxWH * ratio)).toInt()
-                    } else if (image.height - image.width < 0) {
-                        val ratio = ((image.width - image.height).toFloat() / image.width.toFloat())
-                        artist_image_container.layoutParams.height = (maxWH - (maxWH * ratio)).toInt()
-                    }
-                    artist_image_view.setImageBitmap(image)
-                    artist_info.text = artist.info
-                    artist_content.visibility = View.VISIBLE
-                    loading_spinner?.visibility = View.GONE
-                },
-                onFailure = { statusCode ->
-                    var errorMessage = "Something went wrong, please try again later"
-                    if (statusCode == -1) {
-                        errorMessage = "Connection failed, please check your internet connection"
-                    }
-                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-                    Log.e("Request Failure", statusCode.toString())
+                if (image.height - image.width > 0) {
+                    val ratio = ((image.height - image.width).toFloat() / image.height.toFloat())
+                    artist_image_view.layoutParams.width = (maxWH - (maxWH * ratio)).toInt()
+                } else if (image.height - image.width < 0) {
+                    val ratio = ((image.width - image.height).toFloat() / image.width.toFloat())
+                    artist_image_container.layoutParams.height = (maxWH - (maxWH * ratio)).toInt()
                 }
-            )
-        }
+                artist_image_view.setImageBitmap(image)
+                artist_info.text = artist.info
+                artist_content.visibility = View.VISIBLE
+                loading_spinner?.visibility = View.GONE
+            },
+            onFailure = { statusCode ->
+                var errorMessage = "Something went wrong, please try again later"
+                if (statusCode == -1) {
+                    errorMessage = "Connection failed, please check your internet connection"
+                }
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                Log.e("Request Failure", statusCode.toString())
+            }
+        )
     }
 
     override fun onStop() {

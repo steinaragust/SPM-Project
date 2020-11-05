@@ -12,7 +12,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iceartgrp.iceart.R
 import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage
 import com.iceartgrp.iceart.network.ApiConsumer
-import com.iceartgrp.iceart.utils.ImageUtils
 import com.iceartgrp.iceart.utils.ImageUtils.Companion.imageFrom64Encoding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.photo_info_fragment.*
@@ -53,7 +52,6 @@ class PhotoInfoFragment : Fragment() {
         // get bitmap from image
         if (recentImage != null) {
             // TODO: send photo to api for recognition
-            val encoded64Photo = ImageUtils.imageTo64Encoding(recentImage!!)
             ApiConsumer().getPaintingById(
                 0,
                 onSuccess = { painting ->

@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.iceartgrp.iceart.R
 import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage
+import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage64Encoded
+import com.iceartgrp.iceart.utils.ImageUtils
 import kotlinx.android.synthetic.main.fragment_camera.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -102,6 +104,7 @@ class CameraFragment : Fragment() {
             object : ImageCapture.OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     recentImage = image
+                    recentImage64Encoded = ImageUtils.imageTo64Encoding(recentImage!!)
                     val fragmentManager = fragmentManager
                     fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(), "Nothing")?.commit()
                 }

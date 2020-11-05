@@ -84,6 +84,17 @@
                 android:layout_height="match_parent" />
         </com.google.android.flexbox.FlexboxLayout>
 
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:flexDirection="column"
+            app:justifyContent="space_between"
+            android:visibility="gone">
+            <!-- TODO: Known work ? -->
+        </com.google.android.flexbox.FlexboxLayout>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp" />
@@ -100,8 +111,6 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/biography_button"
                 android:text="Biography"
-                app:backgroundTint="@color/white"
-                android:textColor="@color/black"
                 android:layout_width="10dp"
                 app:layout_flexGrow="1"
                 app:strokeWidth="2dp"
