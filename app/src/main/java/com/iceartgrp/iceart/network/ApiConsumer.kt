@@ -37,7 +37,8 @@ class ApiConsumer {
         onFailure: (Int) -> Unit
     ) {
         val url = "$host/exhibition"
-        val jsonBody = """{"image": $image}"""
+        val jsonBody =
+            """{"image": $image}"""
         url.httpPost().body(jsonBody).header("Content-Type" to "application/json").responseString { _, response, result ->
             when (result) {
                 is Result.Failure -> {
