@@ -54,8 +54,8 @@ class PhotoInfoFragment : Fragment() {
         if (recentImage != null) {
             // TODO: send photo to api for recognition
             val encoded64Photo = ImageUtils.imageTo64Encoding(recentImage!!)
-            ApiConsumer().getPaintingById(
-                0,
+            ApiConsumer().getMostSimilarPainting(
+                encoded64Photo,
                 onSuccess = { painting ->
                     painting_title.text = painting.title
                     painting_image_view.setImageBitmap(imageFrom64Encoding(painting.image))
