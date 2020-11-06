@@ -69,6 +69,7 @@
             android:layout_height="50dp" />
 
         <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/biography_content"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginLeft="30dp"
@@ -85,14 +86,89 @@
         </com.google.android.flexbox.FlexboxLayout>
 
         <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/known_work_content"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            app:flexDirection="column"
+            app:flexDirection="row"
             app:justifyContent="space_between"
             android:visibility="gone">
-            <!-- TODO: Known work ? -->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/known_work_container1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_between"
+                >
+                <ImageView
+                    android:id="@+id/known_work_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:background="@drawable/border_background"
+                    android:scaleType="fitXY" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:id="@+id/known_work_text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20sp" />
+            </com.google.android.flexbox.FlexboxLayout>
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/known_work_container2"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_between"
+                >
+                <ImageView
+                    android:id="@+id/known_work_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:background="@drawable/border_background"
+                    android:scaleType="fitXY" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:id="@+id/known_work_text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20sp" />
+            </com.google.android.flexbox.FlexboxLayout>
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/known_work_container3"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_between"
+                >
+                <ImageView
+                    android:id="@+id/known_work_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:background="@drawable/border_background"
+                    android:scaleType="fitXY" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:id="@+id/known_work_text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20sp" />
+            </com.google.android.flexbox.FlexboxLayout>
         </com.google.android.flexbox.FlexboxLayout>
 
         <Space
@@ -111,6 +187,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/biography_button"
                 android:text="Biography"
+                android:textColor="@color/white"
                 android:layout_width="10dp"
                 app:layout_flexGrow="1"
                 app:strokeWidth="2dp"
@@ -130,7 +207,6 @@
                 app:cornerRadius="8dp"
                 android:layout_height="match_parent" />
         </com.google.android.flexbox.FlexboxLayout>
-
     </com.google.android.flexbox.FlexboxLayout>
 
     <ProgressBar

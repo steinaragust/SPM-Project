@@ -1,11 +1,13 @@
 package com.iceartgrp.iceart.components
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iceartgrp.iceart.R
@@ -24,6 +26,7 @@ private const val ARG_ARTIST_ID = "artist_id_arg"
  */
 class ArtistFragment : Fragment() {
     private var artist_id_arg: Int? = null
+    private var biography_selected: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,28 @@ class ArtistFragment : Fragment() {
         go_back.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(), "photoInfoFragment")?.commit()
         }
+        biography_button.setOnClickListener {
+            if (biography_selected == false) {
+                biography_button.background.setTint(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                biography_button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                known_work_button.background.setTint(ContextCompat.getColor(requireContext(), R.color.white))
+                known_work_button.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                biography_content.visibility = View.VISIBLE
+                known_work_content.visibility = View.GONE
+                biography_selected = true
+            }
+        }
+        known_work_button.setOnClickListener {
+            if (biography_selected == true) {
+                known_work_button.background.setTint(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                known_work_button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                biography_button.background.setTint(ContextCompat.getColor(requireContext(), R.color.white))
+                biography_button.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                known_work_content.visibility = View.VISIBLE
+                biography_content.visibility = View.GONE
+                biography_selected = false
+            }
+        }
         val footer = activity?.findViewById<BottomNavigationView>(R.id.navigationView)
         if (footer != null) {
             footer.visibility = View.INVISIBLE
@@ -59,7 +84,7 @@ class ArtistFragment : Fragment() {
             0,
             onSuccess = { artist ->
                 artist_title.text = artist.title
-                val image = ImageUtils.imageFrom64Encoding(artist.image)
+                var image = ImageUtils.imageFrom64Encoding(artist.image)
                 val maxWH = dpToPx(200)
 
                 if (image.height - image.width > 0) {
@@ -71,6 +96,42 @@ class ArtistFragment : Fragment() {
                 }
                 artist_image_view.setImageBitmap(image)
                 artist_info.text = artist.info
+
+                val IMAX_W = 100
+                val IMAX_H = 155
+
+                if (artist.paintings.isNotEmpty()) {
+                    image = ImageUtils.imageFrom64Encoding(artist.paintings[0].image)
+                    known_work_image1.setImageBitmap(image)
+                    known_work_text1.text = "title2"
+                } else {
+                    known_work_container1.visibility = View.INVISIBLE
+                }
+
+                if (image.height - image.width > 0) {
+                    val ratio = ((image.height - image.width).toFloat() / image.height.toFloat())
+                    known_work_image1.layoutParams.width = (IMAX_W - (IMAX_W * ratio)).toInt()
+                } else if (image.height - image.width < 0) {
+                    val ratio = ((image.width - image.height).toFloat() / image.width.toFloat())
+                    known_work_container1.layoutParams.height = (IMAX_H - (IMAX_H * ratio)).toInt()
+                }
+
+                if (artist.paintings.size > 1) {
+                    image = ImageUtils.imageFrom64Encoding(artist.paintings[1].image)
+                    known_work_image2.setImageBitmap(image)
+                    known_work_text2.text = "title3"
+                } else {
+                    known_work_container2.visibility = View.INVISIBLE
+                }
+
+                if (artist.paintings.size > 2) {
+                    image = ImageUtils.imageFrom64Encoding(artist.paintings[2].image)
+                    known_work_image3.setImageBitmap(image)
+                    known_work_text3.text = "title1"
+                } else {
+                    known_work_container3.visibility = View.INVISIBLE
+                }
+
                 artist_content.visibility = View.VISIBLE
                 loading_spinner?.visibility = View.GONE
             },
