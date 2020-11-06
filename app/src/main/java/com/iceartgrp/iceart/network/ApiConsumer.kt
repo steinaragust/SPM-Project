@@ -1,5 +1,6 @@
 package com.iceartgrp.iceart.network
 
+import android.util.Log
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.Result
@@ -67,6 +68,26 @@ class ApiConsumer {
                 }
                 is Result.Success -> {
                     onSuccess(exhibitionsFromJson(result.get()).exhibitions)
+                }
+            }
+        }
+    }
+
+    fun getMP3(
+        text: String,
+        onSuccess: (ByteArray) -> Unit,
+        onFailure: (Int) -> Unit
+    ) {
+        val url = "http://jonni.pythonanywhere.com/"
+        val jsonBody =
+            """{"text": "$text"}"""
+        url.httpPost().body(jsonBody).header("Content-Type" to "application/json").responseString { _, response, result ->
+            when (result) {
+                is Result.Failure -> {
+                    onFailure(response.statusCode)
+                }
+                is Result.Success -> {
+                    onSuccess(result.get().toByteArray())
                 }
             }
         }
