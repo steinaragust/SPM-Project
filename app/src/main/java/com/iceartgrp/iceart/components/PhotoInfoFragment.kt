@@ -14,30 +14,46 @@ import com.iceartgrp.iceart.components.MainActivity.Companion.recentImage
 import com.iceartgrp.iceart.network.ApiConsumer
 import com.iceartgrp.iceart.utils.ImageUtils
 import com.iceartgrp.iceart.utils.ImageUtils.Companion.imageFrom64Encoding
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.photo_info_fragment.*
+import kotlinx.android.synthetic.main.photo_info_fragment.go_back
+import kotlinx.android.synthetic.main.photo_info_fragment.loading_spinner
+
+private const val ARG_PHOTO_ID = "photo_id_arg"
 
 class PhotoInfoFragment : Fragment() {
+    private var photo_id_arg: Int? = null
     companion object {
-        fun newInstance() = PhotoInfoFragment().apply {
+        fun newInstance(photo_id_arg: Int?) = PhotoInfoFragment().apply {
             arguments = Bundle().apply {
+                if (photo_id_arg != null) {
+                    putInt(ARG_PHOTO_ID, photo_id_arg)
+                }
             }
         }
+    }
+
+    private fun dpToPx(dp: Int): Float {
+        val density = requireContext().resources.displayMetrics.density
+        return dp * density
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            photo_id_arg = it.getInt(ARG_PHOTO_ID)
         }
     }
 
     private lateinit var viewModel: PhotoInfoViewModel
+
+    private var maxWH: Float? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        maxWH = dpToPx(300)
         return inflater.inflate(R.layout.photo_info_fragment, container, false)
     }
 
@@ -50,18 +66,65 @@ class PhotoInfoFragment : Fragment() {
         go_back.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, CameraFragment.newInstance(), "cameraModule")?.commit()
         }
-        // get bitmap from image
         if (recentImage != null) {
-            // TODO: send photo to api for recognition
             val encoded64Photo = ImageUtils.imageTo64Encoding(recentImage!!)
             ApiConsumer().getMostSimilarPainting(
                 encoded64Photo,
                 onSuccess = { painting ->
                     painting_title.text = painting.title
-                    painting_image_view.setImageBitmap(imageFrom64Encoding(painting.image))
+                    painting_year.text = painting.year.toString()
+
+                    val image = imageFrom64Encoding(painting.image)
+
+                    if (image.height - image.width > 0) {
+                        val ratio = ((image.height - image.width).toFloat() / image.height.toFloat())
+                        painting_image_view.layoutParams.width = (maxWH!! - (maxWH!! * ratio)).toInt()
+                    } else if (image.height - image.width < 0) {
+                        val ratio = ((image.width - image.height).toFloat() / image.width.toFloat())
+                        painting_image_container.layoutParams.height = (maxWH!! - (maxWH!! * ratio)).toInt()
+                    }
+
+                    painting_image_view.setImageBitmap(image)
                     painting_info_text.text = painting.technique
                     painting_content.visibility = View.VISIBLE
                     loading_spinner?.visibility = View.GONE
+                    artist_info_button.setOnClickListener {
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, ArtistFragment.newInstance(painting.artistId), "artistView")?.commit()
+                    }
+                },
+                onFailure = { statusCode ->
+                    var errorMessage = "Something went wrong, please try again later"
+                    if (statusCode == -1) {
+                        errorMessage = "Connection failed, please check your internet connection"
+                    }
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                    Log.e("Request Failure", statusCode.toString())
+                }
+            )
+        } else {
+            // TODO: send photo to api for recognition
+            ApiConsumer().getPaintingById(
+                photo_id_arg!!,
+                onSuccess = { painting ->
+                    painting_title.text = painting.title
+                    painting_year.text = painting.year.toString()
+                    val image = imageFrom64Encoding(painting.image)
+
+                    if (image.height - image.width > 0) {
+                        val ratio = ((image.height - image.width).toFloat() / image.height.toFloat())
+                        painting_image_view.layoutParams.width = (maxWH!! - (maxWH!! * ratio)).toInt()
+                    } else if (image.height - image.width < 0) {
+                        val ratio = ((image.width - image.height).toFloat() / image.width.toFloat())
+                        painting_image_container.layoutParams.height = (maxWH!! - (maxWH!! * ratio)).toInt()
+                    }
+
+                    painting_image_view.setImageBitmap(image)
+                    painting_info_text.text = painting.technique
+                    painting_content.visibility = View.VISIBLE
+                    loading_spinner?.visibility = View.GONE
+                    artist_info_button.setOnClickListener {
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, ArtistFragment.newInstance(painting.artistId), "artistView")?.commit()
+                    }
                 },
                 onFailure = { statusCode ->
                     var errorMessage = "Something went wrong, please try again later"
@@ -81,6 +144,7 @@ class PhotoInfoFragment : Fragment() {
         if (footer != null) {
             footer.visibility = View.VISIBLE
         }
+        recentImage = null
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

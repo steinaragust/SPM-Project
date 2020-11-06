@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".components.ArtistFragment">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/artist_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:flexDirection="column"
+        android:visibility="gone"
+        >
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            app:flexDirection="row"
+            app:justifyContent="space_between">
+            <ImageButton
+                android:id="@+id/go_back"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_keyboard_arrow_left_24px"
+                android:title="Go back" />
+
+            <TextView
+                android:id="@+id/artist_title"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=""
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/like_icon"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_thumb_up_alt_24px"
+                android:title="" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/artist_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:justifyContent="center">
+            <ImageView
+                android:id="@+id/artist_image_view"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:background="@drawable/border_background" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/biography_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/border_background"
+            app:flexDirection="column"
+            app:justifyContent="space_between">
+            <TextView
+                android:textSize="16dp"
+                android:padding="5dp"
+                android:id="@+id/artist_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/known_work_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:flexDirection="row"
+            app:justifyContent="space_between"
+            android:visibility="gone">
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/known_work_container1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_between"
+                >
+                <ImageView
+                    android:id="@+id/known_work_image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:background="@drawable/border_background"
+                    android:scaleType="fitXY" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:id="@+id/known_work_text1"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20sp" />
+            </com.google.android.flexbox.FlexboxLayout>
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/known_work_container2"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_between"
+                >
+                <ImageView
+                    android:id="@+id/known_work_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:background="@drawable/border_background"
+                    android:scaleType="fitXY" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:id="@+id/known_work_text2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20sp" />
+            </com.google.android.flexbox.FlexboxLayout>
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/known_work_container3"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:flexDirection="column"
+                app:justifyContent="space_between"
+                >
+                <ImageView
+                    android:id="@+id/known_work_image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="155dp"
+                    android:background="@drawable/border_background"
+                    android:scaleType="fitXY" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp" />
+                <TextView
+                    android:id="@+id/known_work_text3"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/border_background"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="20sp" />
+            </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:flexDirection="row"
+            app:justifyContent="space_between"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/biography_button"
+                android:text="Biography"
+                android:textColor="@color/white"
+                android:layout_width="10dp"
+                app:layout_flexGrow="1"
+                app:strokeWidth="2dp"
+                app:cornerRadius="8dp"
+                android:layout_height="match_parent" />
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/known_work_button"
+                android:text="Known work"
+                app:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                app:layout_flexGrow="1"
+                android:layout_width="10dp"
+                app:strokeWidth="2dp"
+                app:cornerRadius="8dp"
+                android:layout_height="match_parent" />
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <ProgressBar
+        android:id="@+id/loading_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</FrameLayout>

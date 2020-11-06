@@ -55,6 +55,7 @@
             android:layout_height="50dp" />
 
         <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/painting_image_container"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             app:justifyContent="center">
@@ -91,15 +92,14 @@
             android:background="@drawable/border_background"
             app:flexDirection="column"
             app:justifyContent="space_between">
-
             <TextView
+                android:id="@+id/painting_year"
                 android:textSize="16dp"
                 android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="Year: 2006"
+                android:text=""
                 />
-
             <TextView
                 android:textSize="16dp"
                 android:padding="5dp"
@@ -119,23 +119,12 @@
             app:justifyContent="space_between"
             >
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/artist_info_button"
                 android:text="Artist information"
                 app:backgroundTint="@color/white"
                 android:textColor="@color/black"
                 android:layout_width="10dp"
                 app:layout_flexGrow="1"
-                app:strokeWidth="2dp"
-                app:cornerRadius="8dp"
-                android:layout_height="match_parent" />
-            <Space
-                android:layout_width="5dp"
-                android:layout_height="match_parent" />
-            <com.google.android.material.button.MaterialButton
-                android:text="See more work from artist"
-                app:backgroundTint="@color/white"
-                android:textColor="@color/black"
-                app:layout_flexGrow="1"
-                android:layout_width="10dp"
                 app:strokeWidth="2dp"
                 app:cornerRadius="8dp"
                 android:layout_height="match_parent" />

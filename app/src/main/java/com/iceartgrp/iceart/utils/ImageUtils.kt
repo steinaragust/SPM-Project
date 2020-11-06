@@ -23,7 +23,8 @@ class ImageUtils {
             val outputStream = ByteArrayOutputStream()
             Bitmap.createBitmap(bmp, 0, 0, bmp.width, bmp.height, mat, true)
                 .compress(Bitmap.CompressFormat.JPEG, QUALITY, outputStream)
-            return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT)
+            val byteArr = outputStream.toByteArray()
+            return Base64.encodeToString(byteArr, Base64.DEFAULT)
                 .replace("\n", "")
         }
 
