@@ -71,7 +71,7 @@ class ApiConsumer {
             }
         }
     }
-    
+
     fun getTextVoiced(
         text: String,
         onSuccess: (ByteArray) -> Unit,
