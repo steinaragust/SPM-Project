@@ -81,7 +81,7 @@ class ArtistFragment : Fragment() {
             footer.visibility = View.INVISIBLE
         }
         ApiConsumer().getArtistById(
-            0,
+            artist_id_arg!!,
             onSuccess = { artist ->
                 artist_title.text = artist.title
                 var image = ImageUtils.imageFrom64Encoding(artist.image)
