@@ -52,7 +52,7 @@ class ArtistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         go_back.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(), "photoInfoFragment")?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, CameraFragment.newInstance(), "cameraModule")?.commit()
         }
         biography_button.setOnClickListener {
             if (biography_selected == false) {
@@ -103,7 +103,11 @@ class ArtistFragment : Fragment() {
                 if (artist.paintings.isNotEmpty()) {
                     image = ImageUtils.imageFrom64Encoding(artist.paintings[0].image)
                     known_work_image1.setImageBitmap(image)
-                    known_work_text1.text = "title1"
+                    known_work_text1.text = artist.paintings[0].name
+                    known_work_container1.setOnClickListener {
+                        val fragmentManager = fragmentManager
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(artist.paintings[0].id), "photoInfoFragment")?.commit()
+                    }
                 } else {
                     known_work_container1.visibility = View.INVISIBLE
                 }
@@ -119,7 +123,11 @@ class ArtistFragment : Fragment() {
                 if (artist.paintings.size > 1) {
                     image = ImageUtils.imageFrom64Encoding(artist.paintings[1].image)
                     known_work_image2.setImageBitmap(image)
-                    known_work_text2.text = "title2"
+                    known_work_text2.text = artist.paintings[1].name
+                    known_work_container2.setOnClickListener {
+                        val fragmentManager = fragmentManager
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(artist.paintings[1].id), "photoInfoFragment")?.commit()
+                    }
                 } else {
                     known_work_container2.visibility = View.INVISIBLE
                 }
@@ -127,7 +135,11 @@ class ArtistFragment : Fragment() {
                 if (artist.paintings.size > 2) {
                     image = ImageUtils.imageFrom64Encoding(artist.paintings[2].image)
                     known_work_image3.setImageBitmap(image)
-                    known_work_text3.text = "title3"
+                    known_work_text3.text = artist.paintings[2].name
+                    known_work_container3.setOnClickListener {
+                        val fragmentManager = fragmentManager
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, PhotoInfoFragment.newInstance(artist.paintings[2].id), "photoInfoFragment")?.commit()
+                    }
                 } else {
                     known_work_container3.visibility = View.INVISIBLE
                 }

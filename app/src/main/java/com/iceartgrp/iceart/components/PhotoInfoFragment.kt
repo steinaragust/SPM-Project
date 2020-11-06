@@ -16,10 +16,16 @@ import com.iceartgrp.iceart.utils.ImageUtils.Companion.imageFrom64Encoding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.photo_info_fragment.*
 
+private const val ARG_PHOTO_ID = "photo_id_arg"
+
 class PhotoInfoFragment : Fragment() {
+    private var photo_id_arg: Int? = null
     companion object {
-        fun newInstance() = PhotoInfoFragment().apply {
+        fun newInstance(photo_id_arg: Int?) = PhotoInfoFragment().apply {
             arguments = Bundle().apply {
+                if (photo_id_arg != null) {
+                    putInt(ARG_PHOTO_ID, photo_id_arg)
+                }
             }
         }
     }
@@ -27,6 +33,7 @@ class PhotoInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            photo_id_arg = it.getInt(ARG_PHOTO_ID)
         }
     }
 
@@ -49,11 +56,35 @@ class PhotoInfoFragment : Fragment() {
         go_back.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, CameraFragment.newInstance(), "cameraModule")?.commit()
         }
+//        if (recentImage != null) {
+//            ApiConsumer().getPaintingById(
+//                0,
+//                onSuccess = { painting ->
+//                    painting_title.text = painting.title
+//                    painting_year.text = painting.year.toString()
+//                    painting_image_view.setImageBitmap(imageFrom64Encoding(painting.image))
+//                    painting_info_text.text = painting.technique
+//                    painting_content.visibility = View.VISIBLE
+//                    loading_spinner?.visibility = View.GONE
+//                    artist_info_button.setOnClickListener {
+//                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, ArtistFragment.newInstance(painting.artistId), "artistView")?.commit()
+//                    }
+//                },
+//                onFailure = { statusCode ->
+//                    var errorMessage = "Something went wrong, please try again later"
+//                    if (statusCode == -1) {
+//                        errorMessage = "Connection failed, please check your internet connection"
+//                    }
+//                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+//                    Log.e("Request Failure", statusCode.toString())
+//                }
+//            )
+//        }
         // get bitmap from image
-        if (recentImage != null) {
+        if (photo_id_arg != null) {
             // TODO: send photo to api for recognition
             ApiConsumer().getPaintingById(
-                0,
+                photo_id_arg!!,
                 onSuccess = { painting ->
                     painting_title.text = painting.title
                     painting_year.text = painting.year.toString()
