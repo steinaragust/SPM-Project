@@ -103,7 +103,7 @@ class ArtistFragment : Fragment() {
                 if (artist.paintings.isNotEmpty()) {
                     image = ImageUtils.imageFrom64Encoding(artist.paintings[0].image)
                     known_work_image1.setImageBitmap(image)
-                    known_work_text1.text = "title2"
+                    known_work_text1.text = "title1"
                 } else {
                     known_work_container1.visibility = View.INVISIBLE
                 }
@@ -119,7 +119,7 @@ class ArtistFragment : Fragment() {
                 if (artist.paintings.size > 1) {
                     image = ImageUtils.imageFrom64Encoding(artist.paintings[1].image)
                     known_work_image2.setImageBitmap(image)
-                    known_work_text2.text = "title3"
+                    known_work_text2.text = "title2"
                 } else {
                     known_work_container2.visibility = View.INVISIBLE
                 }
@@ -127,7 +127,7 @@ class ArtistFragment : Fragment() {
                 if (artist.paintings.size > 2) {
                     image = ImageUtils.imageFrom64Encoding(artist.paintings[2].image)
                     known_work_image3.setImageBitmap(image)
-                    known_work_text3.text = "title1"
+                    known_work_text3.text = "title3"
                 } else {
                     known_work_container3.visibility = View.INVISIBLE
                 }
