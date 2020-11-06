@@ -3,7 +3,12 @@ package com.iceartgrp.iceart.network
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.result.Result
-import com.iceartgrp.iceart.models.*
+import com.iceartgrp.iceart.models.Painting
+import com.iceartgrp.iceart.models.Artist
+import com.iceartgrp.iceart.models.artistFromJson
+import com.iceartgrp.iceart.models.paintingFromJson
+import com.iceartgrp.iceart.models.exhibitionsFromJson
+import com.iceartgrp.iceart.models.Exhibition
 
 class ApiConsumer {
     companion object {
